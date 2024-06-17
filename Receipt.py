@@ -8,22 +8,22 @@
 - 10 pts if time of purchase is after 2pm and before 4pm
 '''
 import math
-from datetime import datetime, date, time
+from datetime import date, time
 
 
 class Receipt:
     def __init__(self, receipt):
         self.retailer = receipt["retailer"]
         self.purchaseDate = date.fromisoformat(receipt["purchaseDate"])
-        self.purchaseTime = time.fromisoformat(receipt[receipt["purchaseTime"]])
+        self.purchaseTime = time.fromisoformat(receipt["purchaseTime"])
         self.items = receipt["items"]
         self.total = float(receipt["total"])
         self.points = 0
 
-        self.process()
-
+        self.process_all()
 
     def process_name(self):
+        print("processing name")
         for char in self.retailer:
             if char.isalnum():
                 self.points += 1
@@ -35,11 +35,11 @@ class Receipt:
             self.points += 25
 
     def process_items(self):
-        self.points = 5 * len(self.items) // 2
+        self.points += 5 * (len(self.items) // 2)
         for item in self.items:
-            description, price = item
+            description, price = item.values()
             trimmed = description[:].strip()
-            if len(trimmed) // 3 == 0:
+            if len(trimmed) % 3 == 0:
                 self.points += math.ceil(float(price) * 0.2)
 
     def process_date(self):
@@ -48,11 +48,11 @@ class Receipt:
 
     def process_time(self):
         earliest_purchase = time(14, 0)
-        latest_purchase = time(16,0)
+        latest_purchase = time(16, 0)
         if earliest_purchase < self.purchaseTime < latest_purchase:
             self.points += 10
 
-    def process(self):
+    def process_all(self):
         self.process_name()
         self.process_date()
         self.process_time()
