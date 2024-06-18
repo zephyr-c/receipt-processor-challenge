@@ -1,6 +1,13 @@
 import pytest
 from ReceiptProcessor import ReceiptProcessor
+from main import app
 
+@pytest.fixture
+def test_client():
+    app.config.update({"TESTING": True})
+    with app.test_client() as testing_client:
+        with app.app_context():
+            yield testing_client
 
 @pytest.fixture
 def simple_receipt_data():

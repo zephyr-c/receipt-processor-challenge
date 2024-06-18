@@ -5,7 +5,10 @@ import json
 
 app = Flask(__name__)
 
-receipts = {}
+receipts = {
+    '13b989e1-66f5-41cd-b71f-dffe26049cf4': 35
+}
+
 
 @app.route("/")
 def hello_world():
@@ -16,15 +19,15 @@ def process_receipt():
     new_receipt_data = request.get_json()
     new_receipt = ReceiptProcessor(new_receipt_data)
     receipt_id = str(uuid.uuid4())
-    receipts[receipt_id] = new_receipt.points
+    receipts[receipt_id] = new_receipt
     return receipt_id
 
 @app.route("/receipts/<id>/points", methods=['GET'])
 def get_receipt_points(id):
     print(receipts)
-    # receipt = receipts[id]
-    # return jsonify(points=receipt.points)
-    return jsonify(points=receipts[id])
+    receipt = receipts[id]
+    return jsonify(points=receipt.points)
+    # return jsonify(points=receipts[id])
 
 @app.route("/receipts/all", methods=['GET'])
 def get_all_receipts():
