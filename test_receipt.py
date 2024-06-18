@@ -1,5 +1,5 @@
 import pytest
-from Receipt import Receipt
+from ReceiptProcessor import ReceiptProcessor
 
 @pytest.fixture
 def simple_receipt_data():
@@ -28,13 +28,13 @@ def morning_receipt_data():
 
 @pytest.fixture
 def simple_receipt(simple_receipt_data):
-    receipt = Receipt(simple_receipt_data)
+    receipt = ReceiptProcessor(simple_receipt_data)
     receipt.points = 0
     return receipt
 
 @pytest.fixture
 def morning_receipt(morning_receipt_data):
-    receipt = Receipt(morning_receipt_data)
+    receipt = ReceiptProcessor(morning_receipt_data)
     receipt.points = 0
     return receipt
 
@@ -97,6 +97,6 @@ class TestPurchaseTimestamp:
 
 class TestTotalPoints:
     def test_simple_receipt(self, simple_receipt_data):
-        processed_receipt = Receipt(simple_receipt_data)
+        processed_receipt = ReceiptProcessor(simple_receipt_data)
         assert processed_receipt.points == 41
 

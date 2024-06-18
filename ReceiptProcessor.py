@@ -11,7 +11,7 @@ import math
 from datetime import date, time
 
 
-class Receipt:
+class ReceiptProcessor:
     def __init__(self, receipt):
         self.retailer = receipt["retailer"]
         self.purchaseDate = date.fromisoformat(receipt["purchaseDate"])
