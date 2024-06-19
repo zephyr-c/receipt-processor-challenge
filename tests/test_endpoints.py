@@ -20,5 +20,5 @@ def test_process_new_receipt(test_client):
 def test_get_existing_points(test_client):
     receipt_id = '13b989e1-66f5-41cd-b71f-dffe26049cf4'
     response = test_client.get(f'receipts/{receipt_id}/points')
-    assert response.json['points'] == 35
+    assert response.json['points'] == 15
 

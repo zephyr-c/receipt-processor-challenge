@@ -1,12 +1,17 @@
 from flask import Flask, request, jsonify
+import json
 
 from models.receipt import ReceiptSchema
 
 app = Flask(__name__)
 
-receipts = {
-    '13b989e1-66f5-41cd-b71f-dffe26049cf4': {'points': 35}
-}
+receipts = {}
+
+with open("examples/morning-receipt.json") as jsonfile:
+    data = jsonfile.read()
+    test_receipt = ReceiptSchema().load(json.loads(data))
+    test_receipt.id = '13b989e1-66f5-41cd-b71f-dffe26049cf4'
+    receipts[test_receipt.id] = test_receipt
 
 
 @app.route("/")
