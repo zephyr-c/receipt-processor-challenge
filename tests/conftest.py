@@ -35,6 +35,9 @@ def morning_receipt_data():
         ]
     }
 
+@pytest.fixture
+def invalid_receipt_data():
+    return {'purchaseDate': '2022-01-02', 'purchaseTime': '14:13', 'total': '1.25', 'items': [{'shortDescription': 'Pepsi - 12-oz', 'price': '1.25'}]}
 
 @pytest.fixture
 def simple_receipt(simple_receipt_data):

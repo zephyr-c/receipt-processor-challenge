@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, abort
+from marshmallow import ValidationError
 import json
 
 from models.receipt import ReceiptSchema
@@ -14,24 +15,25 @@ with open("examples/morning-receipt.json") as jsonfile:
     receipts[test_receipt.id] = test_receipt
 
 
-@app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
-
-
 @app.route("/receipts/process", methods=['POST'])
 def process_receipt():
-    new_receipt = ReceiptSchema().load(request.get_json())
-    receipt_id = new_receipt.id
-    receipts[receipt_id] = new_receipt
+    try:
+        new_receipt = ReceiptSchema().load(request.get_json())
+        receipt_id = new_receipt.id
+        receipts[receipt_id] = new_receipt
 
-    return jsonify(id=receipt_id)
+        return {"id": new_receipt.id}
+
+    except TypeError:
+        abort(400)
 
 
 @app.route("/receipts/<receipt_id>/points", methods=['GET'])
 def get_receipt_points(receipt_id):
-    receipt = receipts[receipt_id]
-    return jsonify(points=receipt.points)
+    receipt = receipts.get(receipt_id)
+    if not receipt:
+        abort(404, "Invalid receipt ID")
+    return {"points": receipt.points}
 
 
 @app.route("/receipts/all", methods=['GET'])
