@@ -1,5 +1,5 @@
 import pytest
-from ReceiptProcessor import ReceiptProcessor
+from models.receipt import ReceiptSchema
 from main import app
 
 @pytest.fixture
@@ -38,13 +38,13 @@ def morning_receipt_data():
 
 @pytest.fixture
 def simple_receipt(simple_receipt_data):
-    receipt = ReceiptProcessor(simple_receipt_data)
+    receipt = ReceiptSchema().load(simple_receipt_data)
     receipt.points = 0
     return receipt
 
 
 @pytest.fixture
 def morning_receipt(morning_receipt_data):
-    receipt = ReceiptProcessor(morning_receipt_data)
+    receipt = ReceiptSchema().load(morning_receipt_data)
     receipt.points = 0
     return receipt

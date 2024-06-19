@@ -1,9 +1,9 @@
-from ReceiptProcessor import ReceiptProcessor
+from models.receipt import ReceiptSchema
 
 
 class TestNamePoints:
     def test_name_points(self, simple_receipt):
-        simple_receipt.process_name()
+        simple_receipt._process_name()
         assert simple_receipt.points == 6
 
     def test_name_with_space(self, simple_receipt):
@@ -13,7 +13,7 @@ class TestNamePoints:
 
     def test_name_with_numbers(self, simple_receipt):
         simple_receipt.retailer = "Rue21"
-        simple_receipt.process_name()
+        simple_receipt._process_name()
         assert simple_receipt.points == 5
 
 
@@ -62,6 +62,6 @@ class TestPurchaseTimestamp:
 
 class TestTotalPoints:
     def test_simple_receipt(self, simple_receipt_data):
-        processed_receipt = ReceiptProcessor(simple_receipt_data)
+        processed_receipt = ReceiptSchema().load(data=simple_receipt_data)
         assert processed_receipt.points == 41
 
