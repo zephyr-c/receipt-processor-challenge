@@ -1,3 +1,21 @@
+# Instructions to Run
+Docker can be utilized to run the application.
+Build the image:
+
+```shell
+docker build -t receipt-processor .
+```
+
+Run a new container from the image:
+```shell
+docker run --name receipt-processor -dp 5000:5000 receipt-processor
+```
+
+The application is now running at `http://localhost:5000` and can be utilized and tested.
+
+
+You can use an interactive shell on the container to run the application's test suite with `pytest -v`
+
 # Receipt Processor
 
 Build a webservice that fulfils the documented API. The API is described below. A formal definition is provided 
