@@ -19,7 +19,7 @@ def hello_world():
     return "<p>Hello, World!</p>"
 
 
-@app.route("/receipts/process", methods=['GET', 'POST'])
+@app.route("/receipts/process", methods=['POST'])
 def process_receipt():
     new_receipt = ReceiptSchema().load(request.get_json())
     receipt_id = new_receipt.id
@@ -28,15 +28,17 @@ def process_receipt():
     return jsonify(id=receipt_id)
 
 
-@app.route("/receipts/<id>/points", methods=['GET'])
-def get_receipt_points(id):
-    receipt = receipts[id]
+@app.route("/receipts/<receipt_id>/points", methods=['GET'])
+def get_receipt_points(receipt_id):
+    receipt = receipts[receipt_id]
     return jsonify(points=receipt.points)
 
 
 @app.route("/receipts/all", methods=['GET'])
 def get_all_receipts():
-    return receipts
+    schema = ReceiptSchema()
+    all_receipts = [schema.dump(receipt) for receipt in receipts.values()]
+    return jsonify(all_receipts)
 
 
 if __name__ == "__main__":
