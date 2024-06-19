@@ -8,8 +8,8 @@ app = Flask(__name__)
 receipts = {}
 
 with open("examples/morning-receipt.json") as jsonfile:
-    data = jsonfile.read()
-    test_receipt = ReceiptSchema().load(json.loads(data))
+    data = json.loads(jsonfile.read())
+    test_receipt = ReceiptSchema().load(data)
     test_receipt.id = '13b989e1-66f5-41cd-b71f-dffe26049cf4'
     receipts[test_receipt.id] = test_receipt
 

@@ -1,4 +1,13 @@
-# Instructions to Run
+# Receipt Processor
+A simple API webservice with endpoints to process a receipt's data and to retrieve the total number of points a given receipt has earned.
+
+API service built in Python using the [Flask](https://flask.palletsprojects.com/en/3.0.x/) framework.
+
+Uses [marshmallow](https://marshmallow.readthedocs.io/en/stable/) for simplified object serialization and data modeling.
+
+Application test suite written with [Pytest](https://docs.pytest.org/en/8.2.x/).
+
+## Instructions to Run
 Docker can be utilized to run the application.
 Build the image:
 
@@ -16,7 +25,7 @@ The application is now running at `http://localhost:5000` and can be utilized an
 
 You can use an interactive shell on the container to run the application's test suite with `pytest -v`
 
-# Receipt Processor
+# Challenge Description
 
 Build a webservice that fulfils the documented API. The API is described below. A formal definition is provided 
 in the [api.yml](./api.yml) file, but the information in this README is sufficient for completion of this challenge. We will use the 
