@@ -8,7 +8,7 @@ from models.item import ItemSchema
 
 class Receipt(object):
     def __init__(self, retailer, purchaseDate, purchaseTime, items, total):
-        self.id = uuid.uuid4()
+        self.id = str(uuid.uuid4())
         self.retailer = retailer
         self.purchaseDate = purchaseDate
         self.purchaseTime = purchaseTime
@@ -77,7 +77,7 @@ class Receipt(object):
 
 
 class ReceiptSchema(Schema):
-    _id = fields.Str()
+    id = fields.Str()
     retailer = fields.Str()
     purchaseDate = fields.Date()
     purchaseTime = fields.Time()
