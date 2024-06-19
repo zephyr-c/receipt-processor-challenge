@@ -32,7 +32,6 @@ def process_receipt():
 def get_receipt_points(id):
     receipt = receipts[id]
     return jsonify(points=receipt['points'])
-    # return jsonify(points=receipts[id])
 
 
 @app.route("/receipts/all", methods=['GET'])
@@ -40,3 +39,5 @@ def get_all_receipts():
     return receipts
 
 
+if __name__ == "__main__":
+    app.run()
