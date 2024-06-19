@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify, abort
-from marshmallow import ValidationError
 import json
 
 from models.receipt import ReceiptSchema
